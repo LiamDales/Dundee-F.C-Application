@@ -45,7 +45,7 @@
     }
 
     /* Full-width input fields */
-    input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel] {
+    input[type=text], input[type=password], input[type=email], input[type=number], input[type=tel],input[type=date] {
         width: 80%;
         padding: 12px 20px;
         margin: 8px 0;
@@ -191,13 +191,13 @@
                 <span onclick="document.getElementById('log').style.display='none'" class="close" title="Close Modal">&times;</span>
             </div>
             <div class="container">
-                <label>First Name</label>
+                <label>Username</label>
                     <div class="controls">
-                        <input type="text" name="user" placeholder="First Name" required>
+                        <input type="text" name="username" placeholder="Username" required>
                     </div>
                 <label>Password</label>
                     <div class="controls">
-                        <input type="password" name="pass" placeholder="Password" required>
+                        <input type="password" name="password" placeholder="Password" required>
                     </div>
                 <button type="submit">Login</button>
             </div>
@@ -209,6 +209,17 @@
                     <span onclick="document.getElementById('reg').style.display='none'" class="close" title="Close Modal">&times;</span>
                 </div>
                 <div class="container">
+                    <div class="control-group <?php echo !empty($usernameError)?'error':'';?>">
+                        <label class="control-label">Username</label>
+                        <div class="controls">
+                            <input name="username" type="text" placeholder="Username" required  maxlength="20" id="username"
+                                   value="<?php echo !empty($username)?$username:'';?>">
+                            <?php if (!empty($usernameError)): ?>
+                                <span class="help-inline"><?php echo $usernameError;?></span>
+                            <?php endif;?>
+                        </div>
+                    </div>
+
                     <div class="control-group <?php echo !empty($fnameError)?'error':'';?>">
                         <label class="control-label">First Name</label>
                         <div class="controls">
@@ -219,16 +230,51 @@
                             <?php endif; ?>
                         </div>
                     </div>
+
                     <div class="control-group <?php echo !empty($lnameError)?'error':'';?>">
                         <label class="control-label">Last Name</label>
                         <div class="controls">
-                            <input name="lname" type="text" placeholder="Last Name" required  maxlength="20" id="lname"
+                            <input name="lname" type="text" placeholder="Last Name" required maxlength="20" id="lname"
                                    value="<?php echo !empty($lname)?$lname:'';?>">
                             <?php if (!empty($lnameError)): ?>
                                 <span class="help-inline"><?php echo $lnameError;?></span>
                             <?php endif;?>
                         </div>
                     </div>
+
+                    <div class="control-group <?php echo !empty($emailError)?'error':'';?>">
+                        <label class="control-label">Email</label>
+                        <div class="controls">
+                            <input name="email" type="email" placeholder="Email" required  maxlength="35" id="email"
+                                   value="<?php echo !empty($email)?$email:'';?>">
+                            <?php if (!empty($emailError)): ?>
+                                <span class="help-inline"><?php echo $emailError;?></span>
+                            <?php endif;?>
+                        </div>
+                    </div>
+
+                    <div class="control-group <?php echo !empty($mobError)?'error':'';?>">
+                        <label class="control-label">Mobile</label>
+                        <div class="controls">
+                            <input name="mob" type="number" placeholder="Mobile"  maxlength="11" required id="mob"
+                                   value="<?php echo !empty($mob)?$mob:'';?>">
+                            <?php if (!empty($mobError)): ?>
+                                <span class="help-inline"><?php echo $mobError;?></span>
+                            <?php endif;?>
+                        </div>
+                    </div>
+
+                    <div class="control-group <?php echo !empty($ageError)?'error':'';?>">
+                        <label class="control-label">Age</label>
+                        <div class="controls">
+                            <input name="age" type="date" placeholder="Age"  maxlength="15" required id="age"
+                                   value="<?php echo !empty($age)?$age:'';?>">
+                            <?php if (!empty($ageError)): ?>
+                                <span class="help-inline"><?php echo $ageError;?></span>
+                            <?php endif;?>
+                        </div>
+                    </div>
+
                     <div class="control-group <?php echo !empty($passwordError)?'error':'';?>">
                         <label class="control-label">Password</label>
                         <div class="controls">
@@ -239,6 +285,7 @@
                             <?php endif; ?>
                         </div>
                     </div>
+
                     <div class="control-group <?php echo !empty($password2Error)?'error':'';?>">
                         <label class="control-label">Password Confirmation</label>
                         <div class="controls">
@@ -266,22 +313,58 @@
 
     function validateForm() {
 
-    var fname = document.getElementById('fname').value;
-    var lname = document.getElementById('lname').value;
-    var pass = document.getElementById('pass').value;
-    var pass2 = document.getElementById('pass2').value;
-    var mob = document.getElementById('mob').value;
-    var email = document.getElementById('email').value;
+        var username = document.getElementById('username').value;
+        var fname = document.getElementById('fname').value;
+        var lname = document.getElementById('lname').value;
+        var pass = document.getElementById('pass').value;
+        var pass2 = document.getElementById('pass2').value;
+        var mob = document.getElementById('mob').value;
+        var email = document.getElementById('email').value;
+        var age = new Date(document.getElementById('age').value);
+
+        var today = new Date();
+        var year = today.getFullYear();
 
 
-    if (fname.toString().length < 3) {
+        if (username.toString().length < 2) {
 
-        window.alert("First Name Less than 3 characters in length");
+        window.alert("Username less than 3 Characters long");
         return false;
     }
-    if (lname.toString().length < 3) {
+    if (username.toString().length > 15) {
 
-        window.alert("Last Name Less than 3 characters in length");
+        window.alert("Username More than 15 Characters long ");
+        return false;
+    }
+
+    if (fname.toString().length < 2) {
+
+        window.alert("First Name less than 3 Characters long");
+        return false;
+    }
+    if (fname.toString().length > 15) {
+
+        window.alert("First Name More than 15 Characters long ");
+        return false;
+    }
+    if (lname.toString().length < 2) {
+
+        window.alert("Last Name Less than 3 characters long");
+        return false;
+    }
+    if (lname.toString().length > 15) {
+
+        window.alert("Last Name More than 15 Characters long ");
+        return false;
+    }
+    if (pass.toString().length < 6) {
+
+        window.alert("Password less than 6 Characters long");
+        return false;
+    }
+    if (pass.toString().length > 25) {
+
+        window.alert("Password more than 25 Characters long");
         return false;
     }
     if (pass !== pass2 ) {
@@ -294,10 +377,32 @@
         window.alert("Mobile Less than 11 Digits Long");
         return false;
     }
+    if (mob.toString().length > 11) {
 
+        window.alert("Mobile more than 11 Digits Long");
+        return false;
+    }
+    if (age == null) {
 
+        window.alert("Please Enter a Vaild Age");
+        return false;
+    }
 
+    if (age.getFullYear() < (year-100) || age.getFullYear() > (year-6)) {
 
+        window.alert("Enter Valid Age");
+        return false;
+    }
+    if (!validateEmail(email)) {
+
+        window.alert("Email not vaild");
+        return false;
+
+    }
+    function validateEmail(email) {
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
 }
 
 </script>

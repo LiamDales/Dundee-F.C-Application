@@ -1,12 +1,12 @@
 <?php
 class Database
 {
-    private static $dbName = 'sql1702439' ;
+    private static $dbName = 'sql1505254' ;
     private static $dbHost = 'lochnagar.abertay.ac.uk' ;
-    private static $dbUsername = 'sql1702439';
-    private static $dbUserPassword = 'n8HXtGlbgGVg';
-	 
-	private static $cont  = null;
+    private static $dbUsername = 'sql1505254';
+    private static $dbUserPassword = 'OWR6GSorV8Z2';
+
+    private static $cont  = null;
 	 
 	public function __construct() {
 		die('Init function is not allowed');

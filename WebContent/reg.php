@@ -10,11 +10,13 @@ if (! empty ( $_POST )) {
     $emailError = null;
 
     // keep track post values
+    $username = $_POST ['username'];
     $fname = $_POST ['fname'];
     $lname = $_POST ['lname'];
     $password = $_POST ['password'];
-    $mobilenum = $_POST ['mobilenum'];
+    $phone_no = $_POST ['mob'];
     $email = $_POST ['email'];
+    $dob = $_POST ['age'];
 
     // validate input
     $valid = true;
@@ -32,8 +34,8 @@ if (! empty ( $_POST )) {
         $valid = false;
     }
 
-    if (empty ($mobilenum)) {
-        $mobilenumError = 'Please enter Mobile Number';
+    if (empty ($phone_no)) {
+        $phone_noError = 'Please enter Mobile Number';
         $valid = false;
     }
 
@@ -42,21 +44,41 @@ if (! empty ( $_POST )) {
         $valid = false;
     }
 
+    if (empty ($dob)) {
+        $dobError = 'Please enter date of birth';
+        $valid = false;
+    }
+
+    if (empty ($username)) {
+        $usernameError = 'Please enter Username';
+        $valid = false;
+    }
+
     // insert data
     if ($valid) {
-        $token = hash('ripemd128', $password);
-        $id = mysql_query("SELECT * FROM users ORDER BY id DESC LIMIT 1");
+        $password_hash = hash('ripemd128', $password);
+        $id = mysql_query("SELECT * FROM Users ORDER BY id DESC LIMIT 1");
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO users (password,fname,lname,mobilenum,email) values(?, ?, ?, ?, ?)";
-        $q = $pdo->prepare($sql);
-        $q->execute(array(
-            $token,
-            $fname,
-            $lname,
-            $mobilenum,
-            $email
-        ));
+        $sql = "INSERT INTO Users (username, email,password_hash,fname,lname,dob,phone_no) values(?, ?, ?, ?, ?, ?, ?)";
+        try {
+            $q = $pdo->prepare($sql);
+            echo "it fucked";
+            $q->execute(array(
+                $username,
+                $email,
+                $password_hash,
+                $fname,
+                $lname,
+                $dob,
+                $phone_no
+            ));
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+            echo $sql;
+        }
         echo "Register Complete";
         header("Location: index.php?reg=true");
         Database::disconnect();

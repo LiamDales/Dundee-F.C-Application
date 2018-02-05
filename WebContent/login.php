@@ -1,24 +1,24 @@
 <?php
   require 'database.php';
   session_start();
-  $fname = $_POST["user"];
-  $password = $_POST["pass"];
-  $token = hash('ripemd128', $password);
+  $username = $_POST["username"];
+  $password_hash = $_POST["password"];
+  $token = hash('ripemd128', $password_hash);
   $pdo = Database::connect();
-  $sql = "SELECT * FROM users WHERE fname='$fname' and password='$token';";
+  $sql = "SELECT * FROM Users WHERE username='$username' and password_hash='$token';";
   echo "Invalid Login";
   header("Location: index.php?invalid=true");
   foreach ($pdo->query($sql) as $row) {
-    if ($row["fname"] == "admin") {
-      $id = $row["id"];
-      $_SESSION["uname"] = "admin";
-      $_SESSION["id"] = $id;
-      header("Location: adminPage.php?id=".$id);
+    if ($row["username"] == "admin") {
+      $user_id = $row["user_id"];
+      $_SESSION["username"] = "admin";
+      $_SESSION["user_id"] = $user_id;
+      header("Location: adminPage.php?id=".$user_id);
     } else {
-      $id = $row["id"]; 
-      $_SESSION["uname"] = $fname;
-      $_SESSION["id"] = $id;
-      header("Location: home.php?id=".$id);
+      $user_id = $row["user_id"];
+      $_SESSION["username"] = $username;
+      $_SESSION["user_id"] = $user_id;
+      header("Location: home.php?id=".$user_id);
     } 
   }
   Database::disconnect();
