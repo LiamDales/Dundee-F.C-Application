@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="487aa003-9485-476d-852f-2ba3e6eff5a3" name="Abertay" url="http://mayar.abertay.ac.uk">
+        <fileTransfer host="mayar.abertay.ac.uk" port="22" rootFolder="/home/UAD/1702439" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
