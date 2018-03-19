@@ -160,8 +160,9 @@
     }
 </style>
 <?php
-
+session_start();
 require 'database.php';
+require 'checkuser.php';
 
 $id = null;
 if ( !empty($_GET['id'])) {
@@ -181,7 +182,6 @@ if ( null==$id ) {
 }
 ?>
 <body>
-<div class="container">
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -192,11 +192,10 @@ if ( null==$id ) {
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" onclick="document.getElementById('reg').style.display='block'"><span class="glyphicon glyphicon-user"></span> Register Player</a></li>
-                <li><a href="#" onclick="document.getElementById('log').style.display='block'" style="width:auto;"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
+                <li><a href="logout.php" style="width:auto;"><span class="glyphicon glyphicon-log-in"></span> Log Out</a></li>
             </ul>
         </div>
     </nav>
-</div> <!-- /container -->
 <div id="main">
     <?php
     if($_GET["reg"] == "true"){

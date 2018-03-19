@@ -166,7 +166,7 @@
                 <a class="navbar-brand" href="#">Portfolio</a>
             </div>
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
+                <li class="active"><a href="#">Front Page</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#" onclick="document.getElementById('reg').style.display='block'"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

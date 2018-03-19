@@ -18,7 +18,7 @@
       $user_id = $row["user_id"];
       $_SESSION["username"] = $username;
       $_SESSION["user_id"] = $user_id;
-      header("Location: home.php?id=".$user_id);
+      header("Location: playerselect.php?id=".$user_id);
     } 
   }
   Database::disconnect();
