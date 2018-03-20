@@ -63,7 +63,7 @@ if (! empty ( $_POST )) {
         $sql = "INSERT INTO Users (username, email,password_hash,fname,lname,dob,phone_no) values(?, ?, ?, ?, ?, ?, ?)";
         try {
             $q = $pdo->prepare($sql);
-            echo "it fucked";
+            echo "Problem-1";
             $q->execute(array(
                 $username,
                 $email,
